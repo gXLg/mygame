@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <style>
+      .biome {
+        width: 8px;
+        height: 8px;
+      }
+    </style>
+  
+    <script>
+      window.onload = async () => {
+        const screen = document.getElementById("screen");
+        const s = 40;
+        for(let x = -s; x <= s; x ++){
+          for(let y = -s; y <= s; y ++){
+            const img = document.createElement("img");
+            img.src = "/assets/biomes/" + await (await fetch("/map/" + x + "/" + y)).text();
+            img.classList.add("biome");
+            img.id = "b" + x + "_" + y;
+            screen.appendChild(img);
+          }
+          screen.appendChild(document.createElement("br"));
+        }
+        /*
+        for(let x = -s; x <= s; x ++){
+          for(let y = -s; y <= s; y ++){
+            const img = document.getElementById("b" + x + "_" + "y");
+            fetch("/map/" + x + "/" + y)
+              .then(d => d.text())
+              .then(t => img.src = "/assets/biomes/" + t);
+          }
+        }
+        */
+      };
+    </script>
+  </head>
+  <body>
+    <div id="screen"></div>
+  </body>
+</html>
